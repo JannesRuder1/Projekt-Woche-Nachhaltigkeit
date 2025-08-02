@@ -1,8 +1,16 @@
 const { weightedSum, weightedGroupSum } = require('./helperfunktions');
 
+
+
+
+const value1 = 80;
+
+
+
+
 const test1 = {
   values: [
-    { value: 80, weight: 3 },
+    { value: value1, weight: 3 },
     { value: 70, weight: 2 },
     { value: 90, weight: 5 },
   ],
