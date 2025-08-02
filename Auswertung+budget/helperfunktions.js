@@ -23,7 +23,7 @@ function weightedGroupSum(groups) {
   let weightedGroupTotal = 0;
   for (const group of groups) {
     if (!Array.isArray(group.values) || typeof group.weight !== 'number') {
-      throw new TypeError('Jede Gruppe muss ein Werte-Array und ein Gewichtung haben');
+      throw new TypeError('Jede Gruppe muss ein Werte-Array und eine Gewichtung haben');
     }
     const groupSum = weightedSum(group.values);
     weightedGroupTotal += groupSum * group.weight;
@@ -33,8 +33,38 @@ function weightedGroupSum(groups) {
   return weightedGroupTotal / totalGroupWeight;
 }
 
+
+
+
+
+function buy(amount, balance) {
+  if (typeof amount !== 'number' || typeof balance !== 'number') {
+    throw new TypeError('Betrag und Kontostand müssen Zahlen sein');
+  }
+  if (amount < 0) {
+    console.log("Warnung: Kauf mit negativem Betrag erhöht den Kontostand, ist aber nicht gewollt.");
+  }
+  return balance - amount;
+}
+
+function sell(amount, balance) {
+  if (typeof amount !== 'number' || typeof balance !== 'number') {
+    throw new TypeError('Betrag und Kontostand müssen Zahlen sein');
+  }
+  if (amount < 0) {
+    console.log("Warnung: Verkauf mit negativem Betrag verringert den Kontostand, ist aber nicht gewollt.");
+  }
+  return balance + amount;
+}
+
+
+
+
+
 module.exports = {
   weightedSum,
-  weightedGroupSum
+  weightedGroupSum,
+  buy,
+  sell
 };
 
