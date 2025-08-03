@@ -61,10 +61,91 @@ function sell(amount, balance) {
 
 
 
+
+function addPopulation(amount, percentages, groups = {}) {
+  if (typeof amount !== 'number') {
+    throw new TypeError('Amount must be a number');
+  }
+  
+  if (typeof percentages !== 'object' || percentages === null) {
+    throw new TypeError('Percentages must be an object');
+  }
+  
+  const totalPercentage = Object.values(percentages).reduce((sum, percentage) => sum + percentage, 0);
+  if (Math.abs(totalPercentage - 100) > 0.01) {
+    console.log(`Warning: Total percentage is ${totalPercentage}%, not 100%`);
+  }
+  
+  const updatedGroups = {...groups};
+  
+  for (const [groupName, percentage] of Object.entries(percentages)) {
+    const addedAmount = amount * (percentage / 100);
+    
+    if (updatedGroups[groupName]) {
+      updatedGroups[groupName] = {
+        count: updatedGroups[groupName].count + addedAmount,
+        percentage: percentage
+      };
+    } else {
+      updatedGroups[groupName] = {
+        count: addedAmount,
+        percentage: percentage
+      };
+    }
+  }
+  
+  return updatedGroups;
+}
+
+function removePopulation(amount, groups, percentages) {
+  if (typeof amount !== 'number') {
+    throw new TypeError('Amount must be a number');
+  }
+  
+  if (typeof groups !== 'object' || groups === null) {
+    throw new TypeError('Groups must be an object');
+  }
+  
+  if (typeof percentages !== 'object' || percentages === null) {
+    throw new TypeError('Percentages must be an object');
+  }
+  
+  const updatedGroups = {...groups};
+  
+  const totalPopulation = Object.values(groups).reduce((sum, group) => sum + group.count, 0);
+  
+  if (amount > totalPopulation) {
+    console.log(`Warning: Removing ${amount} from population of ${totalPopulation}`);
+  }
+  
+  for (const [groupName, percentage] of Object.entries(percentages)) {
+    if (updatedGroups[groupName]) {
+      const groupCount = updatedGroups[groupName].count;
+      const removedAmount = amount * (percentage / 100);
+      
+      updatedGroups[groupName] = {
+        count: Math.max(0, groupCount - removedAmount),
+        percentage: updatedGroups[groupName].percentage
+      };
+    }
+  }
+  
+  return updatedGroups;
+}
+
+
+
+
+
+
+
+
 module.exports = {
   weightedSum,
   weightedGroupSum,
   buy,
-  sell
+  sell,
+  addPopulation,
+  removePopulation
 };
 

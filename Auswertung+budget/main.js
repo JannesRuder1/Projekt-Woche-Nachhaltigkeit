@@ -1,4 +1,4 @@
-const { weightedSum, weightedGroupSum, buy, sell } = require('./helperfunktions');
+const { weightedSum, weightedGroupSum, buy, sell, addPopulation, removePopulation } = require('./helperfunktions');
 
 
 const value1 = 80;
@@ -51,6 +51,16 @@ console.log('gesamter score:', overallSustainability.toFixed(2));
 
 
 
+
+
+
+
+
+
+
+
+
+
 let balance = 1000;
 
 console.log(`${balance}`);
@@ -80,4 +90,53 @@ performBuy(300); // Buy obj1
 console.log();
 
 performSell(75); // Sell obj2
+console.log();
+
+
+
+
+
+
+
+
+
+
+
+let populationGroups = {
+  group1: { count: 0, percentage: 10 },
+  group2: { count: 0, percentage: 10 },
+  group3: { count: 0, percentage: 10 },
+};
+
+
+function displayPopulation() {
+  console.log('Aktuelle Population:');
+  for (const [groupName, group] of Object.entries(populationGroups)) {
+    console.log(`${groupName}: ${group.count.toFixed(2)} (${group.percentage}%)`);
+  }
+  const total = Object.values(populationGroups).reduce((sum, group) => sum + group.count, 0);
+  console.log(`Gesamt: ${total.toFixed(2)}`);
+  console.log();
+}
+
+function performAddPopulation(amount, percentages) {
+  console.log(`Füge ${amount} hinzu`);
+  populationGroups = addPopulation(amount, percentages, populationGroups);
+  return populationGroups;
+}
+
+function performRemovePopulation(amount, percentages) {
+  console.log(`Entferne ${amount} `);
+  populationGroups = removePopulation(amount, populationGroups, percentages);
+  return populationGroups;
+}
+
+performAddPopulation(2000, {group1: 40, group2: 40, group3: 20});
+console.log();
+
+
+performRemovePopulation(2000, {group1: 40, group2: 40, group3: 20});
+console.log();
+
+displayPopulation()
 console.log();
