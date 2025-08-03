@@ -37,6 +37,16 @@ function weightedGroupSum(groups) {
 
 
 
+
+
+
+
+
+
+
+
+
+
 function buy(amount, balance) {
   if (typeof amount !== 'number' || typeof balance !== 'number') {
     throw new TypeError('Betrag und Kontostand müssen Zahlen sein');
@@ -62,18 +72,24 @@ function sell(amount, balance) {
 
 
 
+
+
+
+
+
+
 function addPopulation(amount, percentages, groups = {}) {
   if (typeof amount !== 'number') {
-    throw new TypeError('Amount must be a number');
+    throw new TypeError('Betrag muss eine Zahl sein');
   }
   
   if (typeof percentages !== 'object' || percentages === null) {
-    throw new TypeError('Percentages must be an object');
+    throw new TypeError('Prozentsätze müssen ein Objekt sein');
   }
   
   const totalPercentage = Object.values(percentages).reduce((sum, percentage) => sum + percentage, 0);
   if (Math.abs(totalPercentage - 100) > 0.01) {
-    console.log(`Warning: Total percentage is ${totalPercentage}%, not 100%`);
+    console.log(`Warnung: Die Gesamtprozentsätze betragen ${totalPercentage}%, nicht 100%`);
   }
   
   const updatedGroups = {...groups};
@@ -99,15 +115,15 @@ function addPopulation(amount, percentages, groups = {}) {
 
 function removePopulation(amount, groups, percentages) {
   if (typeof amount !== 'number') {
-    throw new TypeError('Amount must be a number');
+    throw new TypeError('Betrag muss eine Zahl sein');
   }
   
   if (typeof groups !== 'object' || groups === null) {
-    throw new TypeError('Groups must be an object');
+    throw new TypeError('Gruppen müssen ein Objekt sein');
   }
   
   if (typeof percentages !== 'object' || percentages === null) {
-    throw new TypeError('Percentages must be an object');
+    throw new TypeError('Prozentsätze müssen ein Objekt sein');
   }
   
   const updatedGroups = {...groups};
@@ -115,7 +131,7 @@ function removePopulation(amount, groups, percentages) {
   const totalPopulation = Object.values(groups).reduce((sum, group) => sum + group.count, 0);
   
   if (amount > totalPopulation) {
-    console.log(`Warning: Removing ${amount} from population of ${totalPopulation}`);
+    console.log(`Warnung: Entferne ${amount} von einer Population von ${totalPopulation}`);
   }
   
   for (const [groupName, percentage] of Object.entries(percentages)) {
